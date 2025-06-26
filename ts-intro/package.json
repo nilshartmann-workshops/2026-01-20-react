@@ -1,0 +1,13 @@
+{
+  "name": "ts-intro",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "~5.9.3"
+  }
+}
