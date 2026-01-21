@@ -1,26 +1,32 @@
 import PlantCard from "./PlantCard.tsx";
+import { Plant } from "../types.ts";
+import PlantCardList from "./PlantCardList.tsx";
 
 export default function App() {
 
-  const plant = {
-    name:"Aloe Vera",
-    location:"Schlafzimmer",
-    wateringInterval:7,
-    lastWatered:"22.05.2025",
-  }
+  const allPlants: Plant[] = [
+    {
+      id: "1",
+      name: "Aloe Vera",
+      location: "Schlafzimmer",
+      wateringInterval: 12,
+      lastWatered: "2025-06-16",
+    },
+    {
+      id: "2",
+      name: "Orchidee",
+      location: "Wohnzimmer",
+      wateringInterval: 20,
+    },
+  ];
 
-  //
-  //
   return (
     <div className={"AppContainer"}>
-      <PlantCard {...plant}  />
-      {/*<PlantCard name={plant.name} location={plant.location} wateringInterval={plant.wateringInterval}/>*/}
-      <PlantCard
-        name="Aloe Vera"
-        location="Schlafzimmer"
-        wateringInterval={7}
-
-      />
+      <PlantCardList plants={allPlants} />
+      {/*<PlantCard*/}
+      {/*  name="Aloe Vera"*/}
+      {/*  location="Schlafzimmer" wateringInterval={7}*/}
+      {/*/>*/}
     </div>
   );
 }
