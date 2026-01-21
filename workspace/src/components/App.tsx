@@ -20,18 +20,16 @@ const allPlants: Plant[] = [
 ];
 
 export default function App() {
-  const [isOpen, setIsOpen] = useState(true)
+
+  const [interval, setInterval]  = useState(1);
 
   return (
     <div className={"AppContainer"}>
-      <button
-        onClick={() => setIsOpen(!isOpen)}>IntervalSelector ein/ausschalten
-      </button>
-
+      <div>Aktueller Wert: {interval}</div>
       <form>
-        <Activity mode={isOpen ? "visible": "hidden"}>
-          <IntervalSelector /> 
-        </Activity>
+          <IntervalSelector interval={interval}
+            onIntervalChange={newInterval => setInterval(newInterval)}
+          />
       </form>
     </div>
   );
