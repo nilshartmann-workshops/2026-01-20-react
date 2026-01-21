@@ -1,6 +1,11 @@
 import { useState } from "react";
 
+// 1. Phase: Render Phase => Virtual DOM
+// 2. Phase: Commit => "echten" DOM
+
 export default function IntervalSelector() {
+
+  console.log(new Date().toLocaleTimeString());
 
   // State (Zustand)   --> Model
   // const state = useState(1);
@@ -10,7 +15,8 @@ export default function IntervalSelector() {
   const [interval, setInterval]  = useState(1);
 
   const handle7DaysClick = () => {
-    setInterval(7);
+    // SERVER CALL...
+    setInterval(interval+1);
   }
 
   function handle1DayClick() {
@@ -21,11 +27,13 @@ export default function IntervalSelector() {
     setInterval(days);
   }
 
+
   return <div>
     <label>Interval</label>
     <input type={"number"}
            value={interval}
-           onChange={event => setInterval(Number(event.target.value))}/>
+           onChange={event => {
+             setInterval(parseInt(event.target.value))}}/>
     <p>Gießen: alle {interval} Tage</p>
     <button type="button" onClick={handle1DayClick}>Jeden Tag</button>
     <button type="button" onClick={() => handleNDaysClick(3)}>Alle 3 Tage</button>

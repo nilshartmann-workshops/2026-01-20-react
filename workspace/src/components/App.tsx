@@ -2,6 +2,7 @@ import PlantCard from "./PlantCard.tsx";
 import { Plant } from "../types.ts";
 import PlantCardList from "./PlantCardList.tsx";
 import IntervalSelector from "./IntervalSelector.tsx";
+import { useState } from "react";
 
 export default function App() {
 
@@ -21,10 +22,15 @@ export default function App() {
     },
   ];
 
+  const [isIntervalSelectorOpen, setIsIntervalSelectorOpen] = useState(true)
+
   return (
     <div className={"AppContainer"}>
+      <button
+        onClick={() => setIsIntervalSelectorOpen(!isIntervalSelectorOpen)}
+      >IntervalSelector ein/ausschalten</button>
       <form>
-      <IntervalSelector />
+        {isIntervalSelectorOpen ? <IntervalSelector /> : null}
       </form>
       {/*<PlantCardList plants={allPlants} />*/}
       {/*<PlantCard*/}
