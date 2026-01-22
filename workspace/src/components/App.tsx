@@ -1,81 +1,24 @@
-import { useState, useTransition } from "react";
+import { useState } from "react";
 
 import IntervalSelector from "./IntervalSelector.tsx";
-import { produce } from "immer";
+import PlantList from "./PlantList.tsx";
+import PlantForm from "./PlantForm.tsx";
 
-type Person = {
-  firstname: string;
-  lastname: string;
-  age: number;
-  addresses: Array<{
-    city: string;
-    street: string
-  }>
-}
+type View = "liste"|"formular"
 
 export default function App() {
+  // const [count, setCount] = useState(1);
 
-  const [interval, setInterval]  = useState(1);
-  const [person, setPerson] = useState<Person>({
-    firstname: "Klaus",
-    lastname: "Müller",
-    age: 33
-  });
-
-  const handleFirstnameChange = (newName: string) => {
-    // VERBOTEN!!!!!!!!!!!
-    // person.firstname = newName;
-    // setPerson(person);
-    // ERLAUBT:
-    const newPerson = {
-      firstname: newName,
-      lastname: person.lastname,
-      age: person.age
-    }
-    setPerson(newPerson);
-
-    setPerson({
-      firstname: newName,
-      age: person.age
-    })
-
-    setPerson({
-      ...person,
-      firstname: newName
-    })
-
-    setPerson(function(prevPerson) {
-      return {
-        ...prevPerson,
-        firstname: newName
-      }
-    })
-
-    const newPerson2 = {
-      ...person,
-      addresses: [
-          ...person.addresses,
-          { city: "Hamburg", street: "Hautpstraße"}
-      ]
-    }
-
-    // immer.js
-    setPerson(produce(person, draft => {
-      draft.firstname = "Susi";
-      draft.addresses[0].city = "...";
-    }));
-  }
-
+  const [activeTab, setActiveTab] = useState<View>("liste");
 
   return (
     <div className={"AppContainer"}>
-      <p>Hallo, {person.firstname}</p>
-      <div>Aktueller Wert: {interval}</div>
-      <form>
-          <IntervalSelector interval={interval}
-            onIntervalChange={newInterval => setInterval(newInterval)}
-          />
-      </form>
+      <button className={"primary"} onClick={() => setActiveTab("liste")}>Liste</button>
+      <button className={"primary"} onClick={() => setActiveTab("formular")}>Formular</button>
+      {/*<button className={"primary"} onClick={() => setCount(count+1)}>Count {count}</button>*/}
+
+      {activeTab === "liste" && <PlantList />}
+      {activeTab === "formular" && <PlantForm />}
     </div>
   );
 }
