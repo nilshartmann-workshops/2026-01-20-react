@@ -1,13 +1,32 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import IntervalSelector from "./IntervalSelector.tsx";
+import { useWindowTitle } from "./useWindowTitle.ts";
+
 
 export default function PlantForm() {
+  // use => Hook Funktionen
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
   const [wateringInterval, setWateringInterval] = useState(1);
 
+  // window.document.title = "Plant Form";
+
+  // useEffect(() => {
+  //   console.log("Use Effect Called");
+  //   window.document.title = `${name} - Editor`;
+  //
+  //   // Clean Up Function
+  //   return () => {
+  //     console.log("Clean Up")
+  //     window.document.title = "Plant Manager"
+  //   }
+  // }, [name]);
+
+
   const onSaveClick =  () => {
+
+    window.document.title = "...";
 
     const newPlant = {
       name: name,

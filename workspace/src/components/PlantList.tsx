@@ -1,24 +1,46 @@
 import { Plant } from "../types.ts";
 import PlantCardList from "./PlantCardList.tsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { loadDiffConfig } from "vitest/internal/browser";
+import { useWindowTitle } from "./useWindowTitle.ts";
 
+
+// return <div><h1>Hello World</h1></div>
+
+// const virtualDom = {
+//   "name": "div", children: {name: "h1", children: "Hello World"}
+// }
+
+// 1. Phase "rendern" => Virtual DOM
+// 2. Phase "commit" => "echten" DOM
 export default function PlantList() {
+
+
 
   const [allPlants, setAllPlants] = useState<Plant[]>([])
 
-  function loadMultipleThings() {
-    const userPromise = fetch("http://localhost:7200/api/plants/1?slow=2000")
-      .then(data => data.json()).then(p => console.log("Request 1 fertig"))
+  useWindowTitle(`Pflanzenliste`);
 
-    const plantPromise = fetch("http://localhost:7200/api/plants/2?slow=1000")
-      .then(data => data.json()).then(p => console.log("Request 2 fertig"))
+  useEffect(  () => {
 
-    // Promise.all([userPromise, plantPromise])
-    //   .then( allPromiseResults => {
-    //     console.log("Alle fertig");
-    //   });
+    async function loadData() {
+      const result = await fetch("http://localhost:7200/api/plants");
+      const data = await result.json();
+      setAllPlants(data);
+    }
 
-  }
+    loadData();
+
+
+    // fetch("http://localhost:7200/api/plants")
+    //   .then(result => {
+    //     return result.json()
+    //   })
+    //   .then(data => {
+    //     setAllPlants(data);
+    //   })
+  }, []);
+
 
   const handlePlantLoadClickAsync = async () => {
     // ASYNC / AWAIT
@@ -59,7 +81,7 @@ export default function PlantList() {
   }
 
   return <div>
-    <button className={"primary"} onClick={loadMultipleThings}>Load Plants</button>
+    <button className={"primary"} onClick={handlePlantLoadClick}>Load Plants</button>
     <PlantCardList plants={allPlants} />
   </div>
 }
