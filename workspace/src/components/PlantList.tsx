@@ -1,4 +1,4 @@
-import { Plant } from "../types.ts";
+import { Plant, PlantSchema } from "../types.ts";
 import PlantCardList from "./PlantCardList.tsx";
 import { useEffect, useState } from "react";
 import { loadDiffConfig } from "vitest/internal/browser";
@@ -20,13 +20,34 @@ export default function PlantList() {
   const [allPlants, setAllPlants] = useState<Plant[]>([])
 
   useWindowTitle(`Pflanzenliste`);
+  // function isPlantArray(data: any): data is Plant[] {
+  //   if (Array.isArray(data)) {
+  //     if (typeof data[0] === "object") {
+  //       if ("name" in data[0]) {
+  //         return true
+  //       }
+  //     }
+  //   }
+  //
+  //   return false
+  // }
+  //
+  // function checkData() {
+  //   const x: unknown  = "...";
+  //   if (isPlantArray(x)) {
+  //     x
+  //   }
+  //
+  // }
 
   useEffect(  () => {
 
     async function loadData() {
       const result = await fetch("http://localhost:7200/api/plants");
-      const data = await result.json();
-      setAllPlants(data);
+      const data = await result.json() ;
+      const plants = PlantSchema.array().parse(data);
+
+      setAllPlants(plants);
     }
 
     loadData();
