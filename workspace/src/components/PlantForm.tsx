@@ -8,7 +8,21 @@ export default function PlantForm() {
   const [wateringInterval, setWateringInterval] = useState(1);
 
   const onSaveClick =  () => {
-    // todo
+
+    const newPlant = {
+      name: name,
+      location: location,
+      wateringInterval: wateringInterval
+    }
+
+    fetch("http://localhost:7200/api/plants", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json"
+      },
+      body: JSON.stringify(newPlant)
+    })
+      .then(response => console.log(response.statusText))
   };
 
   return (

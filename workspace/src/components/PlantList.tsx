@@ -6,6 +6,20 @@ export default function PlantList() {
 
   const [allPlants, setAllPlants] = useState<Plant[]>([])
 
+  function loadMultipleThings() {
+    const userPromise = fetch("http://localhost:7200/api/plants/1?slow=2000")
+      .then(data => data.json()).then(p => console.log("Request 1 fertig"))
+
+    const plantPromise = fetch("http://localhost:7200/api/plants/2?slow=1000")
+      .then(data => data.json()).then(p => console.log("Request 2 fertig"))
+
+    // Promise.all([userPromise, plantPromise])
+    //   .then( allPromiseResults => {
+    //     console.log("Alle fertig");
+    //   });
+
+  }
+
   const handlePlantLoadClickAsync = async () => {
     // ASYNC / AWAIT
     try {
@@ -35,6 +49,8 @@ export default function PlantList() {
       .catch(err => {
         // ...
       })
+
+    // ...
     console.log("Nach dem Promise!")
     // ^--- Promise
 
@@ -43,7 +59,7 @@ export default function PlantList() {
   }
 
   return <div>
-    <button className={"primary"} onClick={handlePlantLoadClick}>Load Plants</button>
+    <button className={"primary"} onClick={loadMultipleThings}>Load Plants</button>
     <PlantCardList plants={allPlants} />
   </div>
 }
