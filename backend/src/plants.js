@@ -2,7 +2,7 @@
 export const samplePlants = [
   {
     id: "1",
-    // name: "Grüne Monstera",
+    name: "Grüne Monstera",
     location: "Wohnzimmer",
     wateringInterval: 7,
     lastWatered: "2025-06-20",

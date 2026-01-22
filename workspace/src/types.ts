@@ -12,8 +12,8 @@ import { z } from "zod";
 export const PlantSchema = z.object( {
   id: z.string(),
   name: z.string(),
-  location: z.emoji(),
-  wateringInterval: z.number().min(1),
+  location: z.string(),
+  wateringInterval: z.number(),
   lastWatered: z.string().optional(),
 });
 
